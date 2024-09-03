@@ -22,7 +22,10 @@ public class Usuario implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
     private String nome;
+    @Column(unique = true, nullable = false)
+    private String cpf;
     private String senha;
+    @Column(unique = true, nullable = false)
     private String email;
 
 }
