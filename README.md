@@ -88,9 +88,9 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
         INT fornecedor_ID FK
     }
 
-    venda_venda {
-        INT venda_ID PK
-        INT produto_ID PK
+    venda_produto {
+        INT venda_ID
+        INT produto_ID 
         INT quantidade
     }
 

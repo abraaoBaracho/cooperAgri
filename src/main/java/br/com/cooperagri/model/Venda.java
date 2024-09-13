@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,8 +13,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Entity
 public class Venda implements Serializable {
 
@@ -24,13 +30,14 @@ public class Venda implements Serializable {
     private Long id;
     private Date dia_venda;
     private BigDecimal valor;
-    
+
     @OneToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
     private Boolean foiPago;
 
-    public Venda() {
-    }
+    @OneToMany(mappedBy = "id.venda")
+    private Set<VendaProduto> vendas = new HashSet<>();
 
     public Venda(Long id, Date dia_venda, String valor, Fornecedor fornecedor) {
         this.id = id;
@@ -72,6 +79,18 @@ public class Venda implements Serializable {
         this.fornecedor = fornecedor;
     }
 
+    public Boolean getFoiPago() {
+        return foiPago;
+    }
+
+    public void setFoiPago(Boolean foiPago) {
+        this.foiPago = foiPago;
+    }
+
+    public Set<VendaProduto> getVendas() {
+        return vendas;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -105,14 +124,6 @@ public class Venda implements Serializable {
     private BigDecimal formatDecimal(String valor) {
         var aux = new BigDecimal(valor);
         return aux.setScale(2, RoundingMode.HALF_UP);
-    }
-
-    public Boolean getFoiPago() {
-        return foiPago;
-    }
-
-    public void setFoiPago(Boolean foiPago) {
-        this.foiPago = foiPago;
     }
 
 }
