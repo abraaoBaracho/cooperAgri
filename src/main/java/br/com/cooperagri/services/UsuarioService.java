@@ -1,6 +1,5 @@
 package br.com.cooperagri.services;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,21 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<Usuario> findAll(){
+    public List<Usuario> findAll() {
         return usuarioRepository.findAll();
+    }
+
+    public Usuario findById(Long id) {
+        var aux = usuarioRepository.findById(id);
+        return aux.get();
+    }
+
+    public Usuario create(Usuario user) {
+        return usuarioRepository.save(user);
+    }
+
+    public void delete(Long id) {
+        usuarioRepository.deleteById(id);
     }
 
     public Usuario login(String cpf, String senha) {

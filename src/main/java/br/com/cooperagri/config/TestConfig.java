@@ -11,7 +11,7 @@ import br.com.cooperagri.model.Usuario;
 import br.com.cooperagri.repositories.UsuarioRepository;
 
 @Configuration
-@Profile("teste")
+@Profile("test")
 public class TestConfig implements CommandLineRunner {
 
     @Autowired
