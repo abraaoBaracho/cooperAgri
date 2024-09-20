@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import br.com.cooperagri.services.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/users")
+@CrossOrigin
 public class UsuarioResource {
 
     @Autowired
@@ -36,7 +39,7 @@ public class UsuarioResource {
         return ResponseEntity.ok().body(user);
     }
 
-    @PostMapping
+    @PostMapping(value="/cadastrar")
     public ResponseEntity<Usuario> create(@RequestBody Usuario newUser) {
         Usuario user = usuarioService.create(newUser);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
@@ -44,10 +47,17 @@ public class UsuarioResource {
         return ResponseEntity.created(uri).body(user);
     }
 
-    @DeleteMapping(value="/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         usuarioService.delete(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario newUser) {
+        newUser = usuarioService.update(id, newUser);
+
+        return ResponseEntity.ok().body(newUser);
     }
 }
