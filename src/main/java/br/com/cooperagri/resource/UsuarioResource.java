@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.cooperagri.model.Usuario;
+import br.com.cooperagri.model.dto.AutenticarLogin;
+import br.com.cooperagri.services.AuthService;
 import br.com.cooperagri.services.UsuarioService;
 
 @RestController
@@ -26,6 +28,8 @@ public class UsuarioResource {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private AuthService authService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() {
@@ -45,6 +49,12 @@ public class UsuarioResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 
         return ResponseEntity.created(uri).body(user);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AutenticarLogin login) {
+        
+        return ResponseEntity.ok(authService.login(login));
     }
 
     @DeleteMapping(value = "/{id}")

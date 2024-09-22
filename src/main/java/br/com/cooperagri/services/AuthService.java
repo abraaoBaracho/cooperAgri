@@ -7,8 +7,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import br.com.cooperagri.model.Acesso;
-import br.com.cooperagri.model.AutenticarLogin;
+import br.com.cooperagri.model.dto.AutenticarLogin;
+import br.com.cooperagri.model.dto.LoginResponse;
 import br.com.cooperagri.security.jwt.JwtUtil;
 import br.com.cooperagri.services.impl.UserDetailsImpl;
 
@@ -21,7 +21,7 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public Acesso login(AutenticarLogin auth) {
+    public LoginResponse login(AutenticarLogin auth) {
 
         try {
             UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(auth.getCpf(), auth.getSenha());
@@ -32,11 +32,12 @@ public class AuthService {
 
             String token = jwtUtil.gerarTokenComUserDetailsImpl(usuarioAuth);
 
-            Acesso acesso = new Acesso(token);
-            return acesso;
+            Long userId = usuarioAuth.getId();
+
+            return new LoginResponse(token, userId);
+
         } catch (BadCredentialsException e) {
-            //TODO usuario ou senha invalidos
+            throw new BadCredentialsException("Credenciais inválidas");
         }
-        return new Acesso("Acesso negado");
     }
 }
