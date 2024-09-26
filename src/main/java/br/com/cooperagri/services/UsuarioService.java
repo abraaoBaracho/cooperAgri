@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.cooperagri.model.Usuario;
 import br.com.cooperagri.repositories.UsuarioRepository;
+import br.com.cooperagri.services.exceptions.ResouceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -21,7 +24,7 @@ public class UsuarioService {
 
     public Usuario findById(Long id) {
         var aux = usuarioRepository.findById(id);
-        return aux.get();
+        return aux.orElseThrow(()-> new ResouceNotFoundException(id));
     }
 
     public Usuario create(Usuario user) {
@@ -29,13 +32,22 @@ public class UsuarioService {
     }
 
     public void delete(Long id) {
-        usuarioRepository.deleteById(id);
+        try {
+            usuarioRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            
+          throw new ResouceNotFoundException(id);
+        }
     }
 
     public Usuario update(Long id, Usuario user) {
-        Usuario aux = usuarioRepository.getReferenceById(id);
-        updateData(aux, user);
-        return usuarioRepository.save(aux);
+        try {
+            Usuario aux = usuarioRepository.getReferenceById(id);
+            updateData(aux, user);
+            return usuarioRepository.save(aux);
+        } catch (EntityNotFoundException e) {
+            throw new ResouceNotFoundException(id);
+        }
     }
 
     private void updateData(Usuario aux, Usuario user) {
@@ -44,19 +56,4 @@ public class UsuarioService {
         Optional.ofNullable(user.getNome()).ifPresent(aux::setNome);
         Optional.ofNullable(user.getSenha()).ifPresent(aux::setSenha);
     }
-
-    /*
-    public Usuario login(String cpf, String senha) {
-        Usuario exemploUsuario = new Usuario();
-        exemploUsuario.setCpf(cpf);
-        exemploUsuario.setSenha(senha);
-        
-        // Criar um Example a partir do exemploUsuario
-        Example<Usuario> example = Example.of(exemploUsuario);
-        
-        // Usar findBy com um Example e uma queryFunction para encontrar o usuário
-        //return usuarioRepository.findBy(example, query -> query.first()).orElse(null);
-        return usuarioRepository.findOne(example).orElse(null);
-    }
-     */
 }

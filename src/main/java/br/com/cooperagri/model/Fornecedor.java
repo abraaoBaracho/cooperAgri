@@ -1,12 +1,11 @@
 package br.com.cooperagri.model;
 
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -16,5 +15,12 @@ public class Fornecedor extends Pessoa {
 
     private String caf_dap;
     private String apelido;
+   
+    public Fornecedor(Long id, String nome, String cpf, String rg, Endereco endereco, String telefone,
+            DadosBancarios dados_bancarios, String caf_dap, String apelido) {
+        super(id, nome, cpf, rg, endereco, telefone, dados_bancarios);
+        this.caf_dap = caf_dap;
+        this.apelido = apelido;
+    }
 
 }
