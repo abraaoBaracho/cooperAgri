@@ -20,6 +20,7 @@ import br.com.cooperagri.model.Usuario;
 import br.com.cooperagri.model.dto.AutenticarLogin;
 import br.com.cooperagri.services.AuthService;
 import br.com.cooperagri.services.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -31,6 +32,7 @@ public class UsuarioResource {
     @Autowired
     private AuthService authService;
 
+    @Operation(summary="Retorna todos os usuarios")
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll() {
         List<Usuario> list = usuarioService.findAll();

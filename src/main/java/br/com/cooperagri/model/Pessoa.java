@@ -12,13 +12,11 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Pessoa implements Serializable {
@@ -39,13 +37,41 @@ public abstract class Pessoa implements Serializable {
     private String rg;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="endereco_id")
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
     private String telefone;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="dados_bancarios_id")
+    @JoinColumn(name = "dados_bancarios_id")
     private DadosBancarios dados_bancarios;
+
+    public Pessoa(Long id, String nome, String cpf, String rg, Endereco endereco, String telefone,
+            DadosBancarios dados_bancarios) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = formatarString(cpf);
+        this.rg = formatarString(rg);
+        this.endereco = endereco;
+        this.telefone = formatarString(telefone);
+        this.dados_bancarios = dados_bancarios;
+    }
+
+    public void setCpf(String cpf){
+        this.cpf = formatarString(cpf);
+    }
+
+    public void setRg(String rg){
+        this.rg = formatarString(rg);
+    }
+
+    public void setTelefone(String telefone){
+        this.telefone = formatarString(telefone);
+    }
+
+    private String formatarString(String string) {
+        return string.replaceAll("[^0-9]", "");
+
+    }
 
 }

@@ -46,9 +46,13 @@ public class WebSecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandle))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/users/login").permitAll()
-                .requestMatchers("/users/cadastrar").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/users/login", "/users/cadastrar").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-ui/index.html").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated());
+
+        // Desabilitar headers de frameOptions para permitir o H2 console funcionar
+        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
         http.addFilterBefore(authFilterToken(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
