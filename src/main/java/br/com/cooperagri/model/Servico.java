@@ -3,120 +3,75 @@ package br.com.cooperagri.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import br.com.cooperagri.model.enums.ServicoCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Servico implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    private String nome;
-    private String tipo;
+
+    @OneToOne()
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
+    private Integer servico_code;
     private BigDecimal valor_servico;
-    private String quantidade_de_horas;
-    private BigDecimal valor_total;
+    private Integer quantidade_de_horas;
+    private String dia;
 
-    public Servico() {
-    }
-    
+    public Servico(Funcionario funcionario, ServicoCode servico_code, String valor_servico,
+            Integer quantidade_de_horas) {
 
-    public Servico(Long id, String nome, String tipo, String valor_servico, String quantidade_de_horas,
-            BigDecimal valor_total) {
-        this.id = id;
-        this.nome = nome;
-        this.tipo = tipo;
+        this.funcionario = funcionario;
+        setServicoCode(servico_code);
         this.valor_servico = formatDecimal(valor_servico);
         this.quantidade_de_horas = quantidade_de_horas;
-        this.valor_total = valor_total;
+        this.dia = formatarData();
     }
 
-    public Long getId() {
-        return id;
+    private String formatarData() {
+        LocalDateTime now = LocalDateTime.now();
+
+        // Definir o formato desejado
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        // Formatar o LocalDateTime para uma string
+        String formattedDateTime = now.format(formatter);
+
+        return formattedDateTime;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public BigDecimal getValor_servico() {
-        return valor_servico;
+    private void setServicoCode(ServicoCode servico_code) {
+        if (servico_code != null) {
+            this.servico_code = servico_code.getCode();
+        }
     }
 
     public void setValor_servico(String valor_servico) {
         this.valor_servico = formatDecimal(valor_servico);
     }
 
-    public String getQuantidade_de_horas() {
-        return quantidade_de_horas;
-    }
-
-    public void setQuantidade_de_horas(String quantidade_de_horas) {
-        this.quantidade_de_horas = quantidade_de_horas;
-    }
-
-    public BigDecimal getValor_total() {
-        return valor_total;
-    }
-
-    public void setValor_total(BigDecimal valor_total) {
-        this.valor_total = valor_total;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Servico other = (Servico) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
-
     private BigDecimal formatDecimal(String valor_servico) {
         var aux = new BigDecimal(valor_servico);
         return aux.setScale(2, RoundingMode.HALF_UP);
     }
-    
-
-    
 
 }

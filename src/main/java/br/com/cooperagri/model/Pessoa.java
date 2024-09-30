@@ -36,11 +36,11 @@ public abstract class Pessoa implements Serializable {
     @Column(unique = true, nullable = false)
     private String rg;
 
+    private String telefone;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
-
-    private String telefone;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dados_bancarios_id")
@@ -52,20 +52,20 @@ public abstract class Pessoa implements Serializable {
         this.nome = nome;
         this.cpf = formatarString(cpf);
         this.rg = formatarString(rg);
-        this.endereco = endereco;
         this.telefone = formatarString(telefone);
+        this.endereco = endereco;
         this.dados_bancarios = dados_bancarios;
     }
 
-    public void setCpf(String cpf){
+    public void setCpf(String cpf) {
         this.cpf = formatarString(cpf);
     }
 
-    public void setRg(String rg){
+    public void setRg(String rg) {
         this.rg = formatarString(rg);
     }
 
-    public void setTelefone(String telefone){
+    public void setTelefone(String telefone) {
         this.telefone = formatarString(telefone);
     }
 

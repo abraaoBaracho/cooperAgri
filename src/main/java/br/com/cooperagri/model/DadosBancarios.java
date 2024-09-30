@@ -8,7 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class DadosBancarios implements Serializable {
 
@@ -24,11 +30,7 @@ public class DadosBancarios implements Serializable {
     private String tipo_conta;
     private String pix;
 
-    public DadosBancarios() {
-    }
-
-    public DadosBancarios(Long id, String agencia, String conta, String tipo_conta, String pix, BancoCode banco) {
-        this.id = id;
+    public DadosBancarios(String agencia, String conta, String tipo_conta, String pix, BancoCode banco) {
         this.agencia = agencia;
         this.conta = conta;
         this.tipo_conta = tipo_conta;
@@ -46,73 +48,34 @@ public class DadosBancarios implements Serializable {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
-    public String getConta() {
-        return conta;
-    }
-
-    public void setConta(String conta) {
-        this.conta = conta;
-    }
-
-    public String getTipo_conta() {
-        return tipo_conta;
-    }
-
-    public void setTipo_conta(String tipo_conta) {
-        this.tipo_conta = tipo_conta;
-    }
-
-    public String getPix() {
-        return pix;
-    }
-
-    public void setPix(String pix) {
-        this.pix = pix;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((conta == null) ? 0 : conta.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         DadosBancarios other = (DadosBancarios) obj;
         if (id == null) {
-            if (other.id != null) {
+            if (other.id != null)
                 return false;
-            }
-        } else if (!id.equals(other.id)) {
+        } else if (!id.equals(other.id))
             return false;
-        }
+        if (conta == null) {
+            if (other.conta != null)
+                return false;
+        } else if (!conta.equals(other.conta))
+            return false;
         return true;
     }
 

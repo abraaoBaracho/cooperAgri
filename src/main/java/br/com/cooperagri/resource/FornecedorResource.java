@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.cooperagri.model.Fornecedor;
 import br.com.cooperagri.services.FornecedorService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping(value = "/fornecedor")
@@ -27,19 +28,22 @@ public class FornecedorResource {
     @Autowired
     private FornecedorService fornecedorService;
 
+    @Operation(summary = "Retorna todos os fornecedores", description = "Retorna todos os fornecedores salvos no banco")
     @GetMapping
     public ResponseEntity<List<Fornecedor>> findAll() {
         List<Fornecedor> list = fornecedorService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
+    @Operation(summary = "Localiza um fornecedor pelo id", description = "Retorna um fornecedor localizado pelo id")
     @GetMapping(value = "/{id}")
     public ResponseEntity<Fornecedor> findById(@PathVariable Long id) {
         Fornecedor fornecedor = fornecedorService.findById(id);
         return ResponseEntity.ok().body(fornecedor);
     }
 
-    @PostMapping(value="/cadastrar")
+    @Operation(summary = "Salva fornecedor", description = "Salva um fornecedor no banco e o retorna")
+    @PostMapping(value = "/cadastrar")
     public ResponseEntity<Fornecedor> create(@RequestBody Fornecedor newfFornecedor) {
         Fornecedor fornecedor = fornecedorService.create(newfFornecedor);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(fornecedor.getId()).toUri();
@@ -47,6 +51,7 @@ public class FornecedorResource {
         return ResponseEntity.created(uri).body(fornecedor);
     }
 
+    @Operation(summary = "Deletar fornecedor", description = "Delete o fornecedor do id informado")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         fornecedorService.delete(id);
@@ -54,7 +59,8 @@ public class FornecedorResource {
         return ResponseEntity.noContent().build();
     }
 
-     @PutMapping("/{id}")
+    @Operation(summary = "Edita um fornecedor", description = "Edita um fornecedor do id informado com os dados fornecido")
+    @PutMapping("/{id}")
     public ResponseEntity<Fornecedor> update(@PathVariable Long id, @RequestBody Fornecedor newFornecedor) {
         newFornecedor = fornecedorService.update(id, newFornecedor);
 

@@ -10,9 +10,14 @@ import org.springframework.context.annotation.Profile;
 import br.com.cooperagri.model.DadosBancarios;
 import br.com.cooperagri.model.Endereco;
 import br.com.cooperagri.model.Fornecedor;
+import br.com.cooperagri.model.Funcionario;
+import br.com.cooperagri.model.Servico;
 import br.com.cooperagri.model.Usuario;
 import br.com.cooperagri.model.enums.BancoCode;
+import br.com.cooperagri.model.enums.ServicoCode;
 import br.com.cooperagri.repositories.FornecedorRepository;
+import br.com.cooperagri.repositories.FuncionarioRepository;
+import br.com.cooperagri.repositories.ServicoRepository;
 import br.com.cooperagri.repositories.UsuarioRepository;
 
 @Configuration
@@ -25,6 +30,12 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private ServicoRepository servicoRepository;
+
     @Override
     public void run(String... args) throws Exception {
         
@@ -36,14 +47,27 @@ public class TestConfig implements CommandLineRunner {
 
         Endereco e1 = new Endereco(null, "181", "534350-424", "61", "caetes 1", "Abreu e Lima");
 
-        DadosBancarios d1 = new DadosBancarios(null, "1606", "01666-6", "corrente",
+        Endereco e2 = new Endereco(null, "181", "546546546", "56", "caetes 1", "abreu e lima");
+
+        DadosBancarios d1 = new DadosBancarios( "1606", "01666-6", "corrente",
          "81992528738", BancoCode.BRADESCO);
 
-        Fornecedor f1 = new Fornecedor(null, "amos", "123-456-789-00", "1123456",
+         DadosBancarios d2 = new DadosBancarios( "1606", "01616-6", "corrente",
+         "81992528738", BancoCode.BRADESCO);
+
+        Fornecedor fo1 = new Fornecedor(null, "amos", "123-456-789-00", "1123456",
          e1, "983534766", d1, "?????", "mano");
        
-         fornecedorRepository.save(f1);
+         fornecedorRepository.save(fo1);
 
+         Funcionario fu1 = new Funcionario(null, "abraao", "123456798", "5456465", e2, "85465465", d2);
+         
+         funcionarioRepository.save(fu1);
+         
+         Servico s1 = new Servico(fu1, ServicoCode.FRETE, "25.60", 2);
+
+         servicoRepository.save(s1);
+          
     }
 
 }
