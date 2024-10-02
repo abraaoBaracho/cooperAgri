@@ -8,8 +8,7 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
    
    ## Diagrama de Classes (Domínio da API)
    ```mermaid
-   
-erDiagram
+   erDiagram
  user {
      INT id PK "AUTO_INCREMENT"
      VARCHAR nome "50"
@@ -60,12 +59,8 @@ erDiagram
      DECIMAL valor_servico "10, 2"
      INT quantidade_de_horas
      DECIMAL valor_total "10, 2"
- }
- trabalhador_servico {
-     INT id PK "AUTO_INCREMENT"
-     DATE dia_servico
-     INT servico_ID FK
      INT trabalhador_ID FK
+     DATE dia_servico
  }
  trabalhador {
      INT id PK "AUTO_INCREMENT"
@@ -94,7 +89,5 @@ erDiagram
  venda ||--o| fornecedor : "from"
  venda_produto ||--o| venda : "related to"
  venda_produto ||--o| produto : "includes"
- trabalhador_servico ||--o| trabalhador : "assigned to"
- trabalhador_servico ||--o| servico : "involves"
-
+ trabalhador||--o| servico : "assigned to"
 ```

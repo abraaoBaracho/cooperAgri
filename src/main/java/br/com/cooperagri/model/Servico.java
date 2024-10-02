@@ -68,6 +68,9 @@ public class Servico implements Serializable {
     public void setValor_servico(String valor_servico) {
         this.valor_servico = formatDecimal(valor_servico);
     }
+    public String getValor_servico(){
+        return valor_servico.toString();
+    }
 
     private BigDecimal formatDecimal(String valor_servico) {
         var aux = new BigDecimal(valor_servico);

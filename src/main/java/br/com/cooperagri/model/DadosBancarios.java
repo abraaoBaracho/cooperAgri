@@ -24,10 +24,15 @@ public class DadosBancarios implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+    @Column(nullable = false)
     private Integer banco;
+    @Column(nullable = false, length = 20)
     private String agencia;
+    @Column(nullable = false, length = 20)
     private String conta;
+    @Column(nullable = false, length = 20)
     private String tipo_conta;
+    @Column(nullable = false, length = 40)
     private String pix;
 
     public DadosBancarios(String agencia, String conta, String tipo_conta, String pix, BancoCode banco) {
@@ -59,23 +64,30 @@ public class DadosBancarios implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         DadosBancarios other = (DadosBancarios) obj;
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         if (conta == null) {
-            if (other.conta != null)
+            if (other.conta != null) {
                 return false;
-        } else if (!conta.equals(other.conta))
+            }
+        } else if (!conta.equals(other.conta)) {
             return false;
+        }
         return true;
     }
 
