@@ -24,7 +24,7 @@ public class AuthService {
     public LoginResponse login(AutenticarLogin auth) {
 
         try {
-            UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(auth.getCpf(), auth.getSenha());
+            UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(auth.getEmail(), auth.getSenha());
 
             Authentication authentication = authenticationManager.authenticate(userAuth);
 

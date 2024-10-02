@@ -8,6 +8,8 @@ import br.com.cooperagri.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    Optional<Usuario> findByCpf(String cpf);
+    Optional<Usuario> findByNome(String nome);
+    Optional<Usuario> findByEmail(String email);
+
   
 }

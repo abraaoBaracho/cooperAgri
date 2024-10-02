@@ -14,14 +14,14 @@ public class UserDetailsImpl implements UserDetails {
 
     private Long id;
     private String name;
-    private String cpf;
     private String email;
     private String password;
+    
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(Usuario usuario) {
         return new UserDetailsImpl(usuario.getId(), usuario.getNome(),
-                usuario.getCpf(), usuario.getEmail(), usuario.getSenha(), new ArrayList<>());
+                usuario.getEmail(), usuario.getSenha(), new ArrayList<>());
     }
 
     @Override
@@ -44,7 +44,15 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return cpf;
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

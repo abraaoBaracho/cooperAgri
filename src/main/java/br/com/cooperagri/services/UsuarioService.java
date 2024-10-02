@@ -58,7 +58,7 @@ public class UsuarioService {
     }
 
     private void updateData(Usuario aux, Usuario user) {
-        Optional.ofNullable(user.getCpf()).ifPresent(aux::setCpf);
+       
         Optional.ofNullable(user.getEmail()).ifPresent(aux::setEmail);
         Optional.ofNullable(user.getNome()).ifPresent(aux::setNome);
         Optional.ofNullable(user.getSenha()).ifPresent(aux::setSenha);

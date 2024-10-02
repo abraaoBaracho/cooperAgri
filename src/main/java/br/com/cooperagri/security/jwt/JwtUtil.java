@@ -27,7 +27,7 @@ public class JwtUtil {
 
     public String gerarTokenComUserDetailsImpl(UserDetailsImpl userData) {
         return Jwts.builder()
-                .subject(userData.getUsername())
+                .subject(userData.getEmail())
                 .issuedAt(new Date())
                 .expiration(new Date(new Date().getTime() + jwtExpirationMs))
                 .signWith(getSigninKey())
@@ -42,7 +42,7 @@ public class JwtUtil {
     }
 
     @SuppressWarnings("deprecation")
-    public String getCpfToken(String token){
+    public String getEmailToken(String token){
         return  Jwts.parser().setSigningKey(getSigninKey()).build().parseClaimsJws(token).getBody().getSubject();
     }
 
@@ -51,6 +51,7 @@ public class JwtUtil {
         try {
 
             Jwts.parser().setSigningKey(getSigninKey()).build().parseClaimsJws(authToken);
+            
             return true;
 
         } catch (MalformedJwtException e) {

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AutenticarLogin {
 
-    private String cpf;
+    private String email;
     private String senha;
 
 }

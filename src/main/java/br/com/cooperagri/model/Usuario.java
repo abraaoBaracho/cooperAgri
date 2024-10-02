@@ -25,16 +25,13 @@ public class Usuario implements Serializable {
     private Long id;
     @Column(nullable = false, length = 50)
     private String nome;
-    @Column(unique = true, nullable = false, length = 11)
-    private String cpf;
     @Column(nullable = false)
     private String senha;
     @Column(unique = true, nullable = false, length = 30)
     private String email;
 
-    public Usuario(Long id, String nome, String cpf, String senha, String email) {
+    public Usuario(Long id, String nome, String senha, String email) {
         this.id = id;
-        this.cpf = formatarCpf(cpf);
         this.email = email;
         this.nome = nome;
         setSenha(senha);  // Use o método para hash da senha
@@ -43,15 +40,6 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.senha = encoder.encode(senha);  // Hash da senha
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = formatarCpf(cpf);
-    }
-
-    private String formatarCpf(String cpf) {
-        return cpf.replaceAll("[^0-9]", "");
-
     }
 
 }
