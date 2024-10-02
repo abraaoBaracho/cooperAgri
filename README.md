@@ -8,7 +8,7 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
    
    ## Diagrama de Classes (Domínio da API)
    ```mermaid
-   erDiagram
+  erDiagram
  user {
      INT id PK "AUTO_INCREMENT"
      VARCHAR nome "50"
