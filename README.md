@@ -2,13 +2,12 @@
 Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e Desenvolvimento de Sistemas**.
 
 ## Principais Tecnologias
- - **Java 17**: Utilizaremos a versão LTS mais recente do Java para tirar vantagem das últimas inovações que essa linguagem robusta e amplamente utilizada oferece;
- - **Spring Boot 3**: Trabalharemos com a mais nova versão do Spring Boot, que maximiza a produtividade do desenvolvedor por meio de sua poderosa premissa de autoconfiguração;
- - **Spring Data JPA**: Exploraremos como essa ferramenta pode simplificar nossa camada de acesso aos dados, facilitando a integração com bancos de dados SQL;
+ - **Java 17**: Utilizaremos a versão LTS mais recente do Java para aproveitar as inovações que essa linguagem robusta e amplamente utilizada oferece;
+ - **Spring Boot 3**: Trabalharemos com a versão mais recente do Spring Boot, que maximiza a produtividade do desenvolvedor por meio de sua poderosa premissa de autoconfiguração;
+ - **Spring Data JPA**: Exploraremos como essa ferramenta pode simplificar a camada de acesso a dados, facilitando a integração com bancos de dados SQL.
    
    ## Diagrama de Classes (Domínio da API)
-   ```mermaid
-  erDiagram
+   erDiagram
  user {
      INT id PK "AUTO_INCREMENT"
      VARCHAR nome "50"
@@ -20,7 +19,7 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
      INT id PK "AUTO_INCREMENT"
      VARCHAR rua "100"
      VARCHAR cep "10"
-     VARCHAR numerp "10"
+     VARCHAR numero "10"
      VARCHAR bairro "50"
      VARCHAR cidade "50"
  }
@@ -37,7 +36,7 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
      VARCHAR nome "50"
      VARCHAR ncm "20"
      VARCHAR cod "20"
-     DECIMAL preco "10, 2"
+     DECIMAL preco "10,2"
      INT quantidade
      VARCHAR unidade_de_medida "20"
  }
@@ -56,9 +55,9 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
  servico {
      INT id PK "AUTO_INCREMENT"
      VARCHAR tipo "100"
-     DECIMAL valor_servico "10, 2"
+     DECIMAL valor_servico "10,2"
      INT quantidade_de_horas
-     DECIMAL valor_total "10, 2"
+     DECIMAL valor_total "10,2"
      INT trabalhador_ID FK
      DATE dia_servico
  }
@@ -74,7 +73,7 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
  venda {
      INT id PK "AUTO_INCREMENT"
      DATE dia_venda
-     DECIMAL valor "10, 2"
+     DECIMAL valor "10,2"
      INT fornecedor_ID FK
  }
  venda_produto {
@@ -89,5 +88,5 @@ Projeto da disciplina **Laboratório de Empreendimentos** do curso **Análise e 
  venda ||--o| fornecedor : "from"
  venda_produto ||--o| venda : "related to"
  venda_produto ||--o| produto : "includes"
- trabalhador||--o| servico : "assigned to"
-```
+ trabalhador ||--o| servico : "assigned to"
+
