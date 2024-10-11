@@ -50,7 +50,7 @@ public class TestConfig implements CommandLineRunner {
         Endereco e2 = new Endereco(null, "181", "546546546", "56", "caetes 1", "abreu e lima");
 
         DadosBancarios d1 = new DadosBancarios( "1606", "01666-6", "corrente",
-         "81992528738", BancoCode.BRADESCO);
+         "81992528738", BancoCode.BRASIL);
 
          DadosBancarios d2 = new DadosBancarios( "1606", "01616-6", "corrente",
          "81992528738", BancoCode.BRADESCO);

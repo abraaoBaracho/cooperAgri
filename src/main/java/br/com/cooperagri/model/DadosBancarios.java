@@ -2,6 +2,8 @@ package br.com.cooperagri.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.cooperagri.model.enums.BancoCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,6 +27,7 @@ public class DadosBancarios implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
     @Column(nullable = false)
+    @JsonIgnore
     private Integer banco;
     @Column(nullable = false, length = 20)
     private String agencia;

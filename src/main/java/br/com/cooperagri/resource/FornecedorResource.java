@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.cooperagri.model.Fornecedor;
+import br.com.cooperagri.model.enums.BancoCode;
 import br.com.cooperagri.services.FornecedorService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -65,5 +66,14 @@ public class FornecedorResource {
         newFornecedor = fornecedorService.update(id, newFornecedor);
 
         return ResponseEntity.ok().body(newFornecedor);
+    }
+
+    @Operation(summary = " Retorna os bancos", description = "Retorna todos os bancos salvos na enum em um array")
+    @GetMapping("bancos")
+    public ResponseEntity<BancoCode[]> getBancosCode() {
+        BancoCode[] codes = BancoCode.getCodes();
+
+        return ResponseEntity.ok().body(codes);
+
     }
 }

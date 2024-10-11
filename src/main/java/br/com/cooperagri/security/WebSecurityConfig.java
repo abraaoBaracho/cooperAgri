@@ -1,5 +1,6 @@
 package br.com.cooperagri.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,14 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.com.cooperagri.security.jwt.AuthEntryPointJwt;
 import br.com.cooperagri.security.jwt.AuthFilterToken;
 
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
-   // @Autowired
-   // private AuthEntryPointJwt unauthorizedHandle;
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandle;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -42,12 +44,12 @@ public class WebSecurityConfig {
 
         http.cors(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable())
-               // .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandle))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandle))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/users/login", "/users/cadastrar").permitAll()
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-ui/index.html").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
 
         // Desabilitar headers de frameOptions para permitir o H2 console funcionar
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));

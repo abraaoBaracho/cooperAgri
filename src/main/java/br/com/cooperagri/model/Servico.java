@@ -32,9 +32,15 @@ public class Servico implements Serializable {
     @OneToOne()
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
+    @Column(nullable = false, length = 50)
     private Integer servico_code;
+    @Column(nullable = false, length = 50)
     private BigDecimal valor_servico;
+    @Column(length = 50)
     private Integer quantidade_de_horas;
+    @Column(length = 50)
+    private BigDecimal valor_total;
+    @Column(nullable = false, length = 50)
     private String dia;
 
     public Servico(Funcionario funcionario, ServicoCode servico_code, String valor_servico,
@@ -45,6 +51,34 @@ public class Servico implements Serializable {
         this.valor_servico = formatDecimal(valor_servico);
         this.quantidade_de_horas = quantidade_de_horas;
         this.dia = formatarData();
+        this.valor_total = calcularValorTotal();
+    }
+
+    private void setServicoCode(ServicoCode servico_code) {
+        if (servico_code != null) {
+            this.servico_code = servico_code.getCode();
+        }
+    }
+
+    public void setValor_servico(String valor_servico) {
+        this.valor_servico = formatDecimal(valor_servico);
+    }
+
+    public String getValor_servico() {
+        return valor_servico.toString();
+    }
+
+    public void setValor_total() {
+        this.valor_total = calcularValorTotal();
+    }
+
+    public String getValor_total() {
+        return valor_total.toString();
+    }
+
+    private BigDecimal calcularValorTotal() {
+        var soma = valor_servico.multiply(BigDecimal.valueOf(quantidade_de_horas));
+        return soma;
     }
 
     private String formatarData() {
@@ -57,19 +91,6 @@ public class Servico implements Serializable {
         String formattedDateTime = now.format(formatter);
 
         return formattedDateTime;
-    }
-
-    private void setServicoCode(ServicoCode servico_code) {
-        if (servico_code != null) {
-            this.servico_code = servico_code.getCode();
-        }
-    }
-
-    public void setValor_servico(String valor_servico) {
-        this.valor_servico = formatDecimal(valor_servico);
-    }
-    public String getValor_servico(){
-        return valor_servico.toString();
     }
 
     private BigDecimal formatDecimal(String valor_servico) {
