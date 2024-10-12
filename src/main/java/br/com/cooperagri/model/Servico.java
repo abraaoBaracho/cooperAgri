@@ -33,13 +33,13 @@ public class Servico implements Serializable {
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
     @Column(nullable = false, length = 50)
-    private Integer servico_code;
+    private Integer servicoCode;
     @Column(nullable = false, length = 50)
-    private BigDecimal valor_servico;
+    private BigDecimal valorServico;
     @Column(length = 50)
-    private Integer quantidade_de_horas;
+    private Integer quantidadeDeHoras;
     @Column(length = 50)
-    private BigDecimal valor_total;
+    private BigDecimal valorTotal;
     @Column(nullable = false, length = 50)
     private String dia;
 
@@ -48,37 +48,49 @@ public class Servico implements Serializable {
 
         this.funcionario = funcionario;
         setServicoCode(servico_code);
-        this.valor_servico = formatDecimal(valor_servico);
-        this.quantidade_de_horas = quantidade_de_horas;
+        this.valorServico = formatDecimal(valor_servico);
+        this.quantidadeDeHoras = quantidade_de_horas;
         this.dia = formatarData();
-        this.valor_total = calcularValorTotal();
+        this.valorTotal = calcularValorTotal();
     }
 
-    private void setServicoCode(ServicoCode servico_code) {
-        if (servico_code != null) {
-            this.servico_code = servico_code.getCode();
+    public ServicoCode getServicoCode() {
+        return ServicoCode.valueOf(servicoCode);
+    }
+
+    public void setServicoCode(ServicoCode servicoCode) {
+        if (servicoCode != null) {
+            this.servicoCode = servicoCode.getCode();
         }
     }
 
-    public void setValor_servico(String valor_servico) {
-        this.valor_servico = formatDecimal(valor_servico);
+    public void setValorServico(String valorServico) {
+        this.valorServico = formatDecimal(valorServico);
     }
 
-    public String getValor_servico() {
-        return valor_servico.toString();
+    public String getValorservico() {
+        return valorServico.toString();
     }
 
-    public void setValor_total() {
-        this.valor_total = calcularValorTotal();
+    public void setValortotal() {
+        this.valorTotal = calcularValorTotal();
     }
 
-    public String getValor_total() {
-        return valor_total.toString();
+    public String getValortotal() {
+        return valorTotal.toString();
+    }
+
+    public void setDia() {
+        this.dia = formatarData();
     }
 
     private BigDecimal calcularValorTotal() {
-        var soma = valor_servico.multiply(BigDecimal.valueOf(quantidade_de_horas));
-        return soma;
+        if (quantidadeDeHoras == 0 || quantidadeDeHoras == null) {
+            return valorServico;
+        } else {
+            var soma = valorServico.multiply(BigDecimal.valueOf(quantidadeDeHoras));
+            return soma;
+        }
     }
 
     private String formatarData() {
