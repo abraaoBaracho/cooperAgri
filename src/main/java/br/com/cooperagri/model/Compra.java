@@ -1,30 +1,5 @@
 package br.com.cooperagri.model;
-
-import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.cooperagri.model.pk.VendaProdutoPk;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@Entity
-@Table(name = "venda_produto")
-public class VendaProduto implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @EmbeddedId
-    private VendaProdutoPk id = new VendaProdutoPk();
-    private Integer quantidade;
-
-    public VendaProduto(Venda venda, Produto produto, Integer quantidade) {
-        id.setProduto(produto);
-        id.setVenda(venda);
-        this.quantidade = quantidade;
+/*      this.quantidade = quantidade;
     }
 
     public Integer getQuantidade() {
@@ -83,3 +58,4 @@ public class VendaProduto implements Serializable {
     }
 
 }
+*/

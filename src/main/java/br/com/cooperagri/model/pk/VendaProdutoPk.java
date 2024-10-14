@@ -1,5 +1,5 @@
 package br.com.cooperagri.model.pk;
-
+/* 
 import br.com.cooperagri.model.Produto;
 import br.com.cooperagri.model.Venda;
 import jakarta.persistence.Embeddable;
@@ -22,3 +22,4 @@ public class VendaProdutoPk {
     private Produto produto;
 
 }
+*/

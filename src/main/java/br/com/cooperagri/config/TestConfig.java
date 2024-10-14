@@ -11,10 +11,8 @@ import br.com.cooperagri.model.DadosBancarios;
 import br.com.cooperagri.model.Endereco;
 import br.com.cooperagri.model.Fornecedor;
 import br.com.cooperagri.model.Funcionario;
-import br.com.cooperagri.model.Servico;
 import br.com.cooperagri.model.Usuario;
 import br.com.cooperagri.model.enums.BancoCode;
-import br.com.cooperagri.model.enums.ServicoCode;
 import br.com.cooperagri.repositories.FornecedorRepository;
 import br.com.cooperagri.repositories.FuncionarioRepository;
 import br.com.cooperagri.repositories.ServicoRepository;
@@ -64,9 +62,6 @@ public class TestConfig implements CommandLineRunner {
          
          funcionarioRepository.save(fu1);
          
-         Servico s1 = new Servico(fu1, ServicoCode.FRETE, "25.60", 2);
-
-         servicoRepository.save(s1);
           
     }
 

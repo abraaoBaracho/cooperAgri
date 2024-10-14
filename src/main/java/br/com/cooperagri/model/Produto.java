@@ -3,12 +3,17 @@ package br.com.cooperagri.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Produto implements Serializable {
@@ -25,6 +30,13 @@ public class Produto implements Serializable {
     private BigDecimal preco;
     private Integer quantidade;
     private String unidade_de_medida;
+     @ManyToMany
+    @JoinTable(
+            name = "produto_fornecedor",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "fornecedor_id")
+    )
+    private Set<Fornecedor> funcionarios = new HashSet<>();
 
     public Produto() {
     }

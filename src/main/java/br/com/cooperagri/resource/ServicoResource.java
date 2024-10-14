@@ -1,7 +1,10 @@
 package br.com.cooperagri.resource;
 
 import java.net.URI;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +41,10 @@ public class ServicoResource {
     FuncionarioService funcionarioService;
 
     @GetMapping()
-    public ResponseEntity<List<Servico>> findAll() {
+    public ResponseEntity<List<ServicoDto>> findAll() {
         List<Servico> list = servicoService.findAll();
-        return ResponseEntity.ok().body(list);
+        var dtos = list.stream().map(ServicoDto::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(dtos);
     }
 
     @GetMapping(value = "/{id}")
@@ -59,9 +63,12 @@ public class ServicoResource {
         @ApiResponse(responseCode = "422", description = "Dados invalidos")
     })
     @PostMapping(value = "/cadastrar")
-    public ResponseEntity<ServicoDto> create(@RequestBody ServicoDto newfServico) {
-        Funcionario funcionario = funcionarioService.findById(newfServico.funcionarioId());
-        Servico servico = servicoService.create(newfServico.modelo(funcionario));
+    public ResponseEntity<ServicoDto> create(@RequestBody ServicoDto newServico) {
+        Set<Funcionario> funcionarios = new HashSet<>();
+        for (Long id : newServico.funcionarioId()) {
+            funcionarios.add(funcionarioService.findById(id));
+        }
+        Servico servico = servicoService.create(newServico.modelo(funcionarios));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(servico.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ServicoDto(servico));

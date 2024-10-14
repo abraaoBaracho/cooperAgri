@@ -1,5 +1,5 @@
 package br.com.cooperagri.services;
-
+/*
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,3 +25,4 @@ public class VendaService {
    }
     
 }
+*/
