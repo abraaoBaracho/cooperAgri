@@ -1,5 +1,5 @@
 package br.com.cooperagri.model;
-/*
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,8 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,16 +30,18 @@ public class Recebimento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+
     private Date dia_venda;
+
     private BigDecimal valor;
 
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
+
     private Boolean foiPago;
 
-    @ManyToMany
-    @JoinTable
+    @OneToMany(mappedBy = "id.recebimento")
     private Set<Compra> compras = new HashSet<>();
 
     public Recebimento(Long id, Date dia_venda, String valor, Fornecedor fornecedor) {
@@ -57,4 +58,3 @@ public class Recebimento implements Serializable {
     }
 
 }
-*/

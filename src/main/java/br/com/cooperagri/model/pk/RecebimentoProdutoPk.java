@@ -1,25 +1,26 @@
 package br.com.cooperagri.model.pk;
-/* 
+
+import java.io.Serializable;
+
 import br.com.cooperagri.model.Produto;
-import br.com.cooperagri.model.Venda;
+import br.com.cooperagri.model.Recebimento;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Embeddable
-public class VendaProdutoPk {
+public class RecebimentoProdutoPk implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @ManyToOne
-    @JoinColumn(name = "venda_id")
-    private Venda venda;
+    @JoinColumn(name = "recebimento_id")
+    private Recebimento recebimento;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
 }
-*/

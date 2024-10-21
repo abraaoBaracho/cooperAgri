@@ -27,7 +27,7 @@ public class Produto implements Serializable {
     private String nome;
     private String ncm;
     private Long codigo;
-    private BigDecimal preco;
+    private BigDecimal valor;
     private Integer quantidade;
     private String unidade_de_medida;
      @ManyToMany
@@ -41,13 +41,13 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String ncm, Long codigo, String preco, Integer quantidade,
+    public Produto(Long id, String nome, String ncm, Long codigo, String valor, Integer quantidade,
             String unidade_de_medida) {
         this.id = id;
         this.nome = nome;
         this.ncm = ncm;
         this.codigo = codigo;
-        this.preco = formatDecimal(preco);
+        this.valor = formatDecimal(valor);
         this.quantidade = quantidade;
         this.unidade_de_medida = unidade_de_medida;
     }
@@ -84,12 +84,12 @@ public class Produto implements Serializable {
         this.codigo = codigo;
     }
 
-    public String getPreco() {
-        return preco.toString();
+    public String getValor() {
+        return valor.toString();
     }
 
-    public void setPreco(String preco) {
-        this.preco = formatDecimal(preco);
+    public void setValor(String valor) {
+        this.valor = formatDecimal(valor);
     }
 
     public Integer getQuantidade() {
@@ -138,8 +138,8 @@ public class Produto implements Serializable {
         return true;
     }
 
-    private BigDecimal formatDecimal(String preco) {
-        var aux = new BigDecimal(preco);
+    private BigDecimal formatDecimal(String valor) {
+        var aux = new BigDecimal(valor);
         return aux.setScale(2, RoundingMode.HALF_UP);
     }
 
