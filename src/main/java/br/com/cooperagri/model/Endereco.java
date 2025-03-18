@@ -26,15 +26,15 @@ public class Endereco implements Serializable {
     @Column(nullable = false, length = 50)
     private String rua;
     @Column(nullable = false, length = 50)
-    private String cep;
-    @Column(nullable = false, length = 50)
     private String numero;
     @Column(nullable = false, length = 50)
     private String bairro;
     @Column(nullable = false, length = 50)
     private String cidade;
+    @Column(nullable = false, length = 50)
+    private String cep;
     
-    public Endereco(Long id, String rua, String cep, String numero, String bairro, String cidade) {
+    public Endereco(Long id, String rua, String numero, String bairro, String cidade,String cep) {
         this.id = id;
         this.rua = rua;
         this.cep = cep.replaceAll("[^0-9]", "");

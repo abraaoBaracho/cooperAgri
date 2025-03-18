@@ -23,5 +23,9 @@ public class ProdutoService {
     return produtoLocalizado.get();
 
    }
+
+   public Produto create(Produto produto) {
+        return produtoRepository.save(produto);
+    }
     
 }

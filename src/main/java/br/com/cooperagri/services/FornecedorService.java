@@ -57,7 +57,7 @@ public class FornecedorService {
         Optional.ofNullable(fornecedor.getNome()).ifPresent(aux::setNome);
         Optional.ofNullable(fornecedor.getEndereco()).ifPresent(aux::setEndereco);
         Optional.ofNullable(fornecedor.getTelefone()).ifPresent(aux::setTelefone);
-        Optional.ofNullable(fornecedor.getDados_bancarios()).ifPresent(aux::setDados_bancarios);
+       // Optional.ofNullable(fornecedor.getDados_bancarios()).ifPresent(aux::setDados_bancarios);
         Optional.ofNullable(fornecedor.getCaf_dap()).ifPresent(aux::setCaf_dap);
         Optional.ofNullable(fornecedor.getApelido()).ifPresent(aux::setApelido);
     }

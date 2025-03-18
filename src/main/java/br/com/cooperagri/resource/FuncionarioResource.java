@@ -1,3 +1,4 @@
+/*
 package br.com.cooperagri.resource;
 
 import java.net.URI;
@@ -78,3 +79,4 @@ public class FuncionarioResource {
     }
 
 }
+*/

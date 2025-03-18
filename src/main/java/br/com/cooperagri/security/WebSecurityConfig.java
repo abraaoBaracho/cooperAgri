@@ -50,6 +50,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-ui/index.html").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll());
+        
 
         // Desabilitar headers de frameOptions para permitir o H2 console funcionar
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));

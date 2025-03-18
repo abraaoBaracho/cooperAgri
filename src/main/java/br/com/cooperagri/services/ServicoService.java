@@ -59,7 +59,7 @@ public class ServicoService {
 
     private void updateData(Servico aux, Servico servico) {
 
-        Optional.ofNullable(servico.getFuncionarios()).ifPresent(funcionario -> aux.setFuncionarios(funcionario));
+        //Optional.ofNullable(servico.getFuncionarios()).ifPresent(funcionario -> aux.setFuncionarios(funcionario));
         Optional.ofNullable(servico.getServicoCode()).ifPresent(aux::setServicoCode);
         Optional.ofNullable(servico.getValorServico()).ifPresent(aux::setValorServico);
         Optional.ofNullable(servico.getQuantidadeDeHoras()).ifPresent(aux::setQuantidadeDeHoras);

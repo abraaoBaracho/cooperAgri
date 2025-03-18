@@ -1,3 +1,4 @@
+/*
 package br.com.cooperagri.model;
 
 import java.util.HashSet;
@@ -19,9 +20,10 @@ public class Funcionario extends Pessoa {
     private Set<Servico> servicos = new HashSet<>();
 
     public Funcionario(Long id, String nome, String cpf, String rg, Endereco endereco, String telefone,
-            DadosBancarios dados_bancarios) {
-        super(id, nome, cpf, rg, endereco, telefone, dados_bancarios);
+            DadosBancarios dados_bancarios, Usuario usuario) {
+        super(id, nome, cpf, rg, endereco, telefone, dados_bancarios, usuario);
         
     }
 
 }
+ */

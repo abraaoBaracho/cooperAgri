@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.cooperagri.model.Funcionario;
+//import br.com.cooperagri.model.Funcionario;
 import br.com.cooperagri.model.Servico;
 import br.com.cooperagri.model.dto.ServicoDto;
 import br.com.cooperagri.model.enums.ServicoCode;
-import br.com.cooperagri.services.FuncionarioService;
+//import br.com.cooperagri.services.FuncionarioService;
 import br.com.cooperagri.services.ServicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -37,8 +37,8 @@ public class ServicoResource {
     @Autowired
     ServicoService servicoService;
 
-    @Autowired
-    FuncionarioService funcionarioService;
+    // @Autowired
+    // FuncionarioService funcionarioService;
 
     @GetMapping()
     public ResponseEntity<List<ServicoDto>> findAll() {
@@ -49,8 +49,8 @@ public class ServicoResource {
 
     @GetMapping(value = "/{id}")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Operação Concluida"),
-        @ApiResponse(responseCode = "404", description = "Serviço não localizado")
+            @ApiResponse(responseCode = "200", description = "Operação Concluida"),
+            @ApiResponse(responseCode = "404", description = "Serviço não localizado")
     })
     public ResponseEntity<ServicoDto> findById(@PathVariable Long id) {
         Servico servico = servicoService.findById(id);
@@ -59,26 +59,27 @@ public class ServicoResource {
 
     @Operation(summary = "Salva Serviço", description = "Salva um Serviço no banco e o retorna")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Serviço criado com sucesso"),
-        @ApiResponse(responseCode = "422", description = "Dados invalidos")
+            @ApiResponse(responseCode = "201", description = "Serviço criado com sucesso"),
+            @ApiResponse(responseCode = "422", description = "Dados invalidos")
     })
     @PostMapping(value = "/cadastrar")
     public ResponseEntity<ServicoDto> create(@RequestBody ServicoDto newServico) {
-        Set<Funcionario> funcionarios = new HashSet<>();
-        for (Long id : newServico.funcionarioId()) {
-            funcionarios.add(funcionarioService.findById(id));
-        }
-        Servico servico = servicoService.create(newServico.modelo(funcionarios));
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(servico.getId()).toUri();
+        // Set<Funcionario> funcionarios = new HashSet<>();
+        // for (Long id : newServico.funcionarioId()) {
+        // funcionarios.add(funcionarioService.findById(id));
+        // }
+        Servico servico = servicoService.create(newServico.modelo());
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(servico.getId())
+                .toUri();
 
         return ResponseEntity.created(uri).body(new ServicoDto(servico));
     }
 
     @Operation(summary = "Deletar Serviço", description = "Delete o Serviço do id informado")
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "204", description = "Serviço deletado com sucesso"),
-        @ApiResponse(responseCode = "404", description = "Serviço não localizado")
-})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Serviço deletado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Serviço não localizado")
+    })
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         servicoService.delete(id);
@@ -88,9 +89,9 @@ public class ServicoResource {
 
     @Operation(summary = "Edita um Serviço", description = "Edita um Serviço do id informado com os dados fornecido")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Serviço atualizado com sucesso"),
-        @ApiResponse(responseCode = "404", description = "Serviço não localizado"),
-        @ApiResponse(responseCode = "422", description = "Dados invalidos")
+            @ApiResponse(responseCode = "200", description = "Serviço atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Serviço não localizado"),
+            @ApiResponse(responseCode = "422", description = "Dados invalidos")
     })
     @PutMapping("/{id}")
     public ResponseEntity<Servico> update(@PathVariable Long id, @RequestBody Servico newServico) {

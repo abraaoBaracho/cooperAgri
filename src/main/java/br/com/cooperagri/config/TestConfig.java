@@ -10,12 +10,9 @@ import org.springframework.context.annotation.Profile;
 import br.com.cooperagri.model.DadosBancarios;
 import br.com.cooperagri.model.Endereco;
 import br.com.cooperagri.model.Fornecedor;
-import br.com.cooperagri.model.Funcionario;
 import br.com.cooperagri.model.Usuario;
 import br.com.cooperagri.model.enums.BancoCode;
 import br.com.cooperagri.repositories.FornecedorRepository;
-import br.com.cooperagri.repositories.FuncionarioRepository;
-import br.com.cooperagri.repositories.ServicoRepository;
 import br.com.cooperagri.repositories.UsuarioRepository;
 
 @Configuration
@@ -28,11 +25,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
-    @Autowired
-    private FuncionarioRepository funcionarioRepository;
+    //@Autowired
+    //private FuncionarioRepository funcionarioRepository;
 
-    @Autowired
-    private ServicoRepository servicoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -54,13 +49,13 @@ public class TestConfig implements CommandLineRunner {
          "81992528738", BancoCode.BRADESCO);
 
         Fornecedor fo1 = new Fornecedor(null, "amos", "123-456-789-00", "1123456",
-         e1, "983534766", d1, "?????", "mano");
+         e1, "983534766", d1 , u1, "?????", "mano");
        
          fornecedorRepository.save(fo1);
 
-         Funcionario fu1 = new Funcionario(null, "abraao", "123456798", "5456465", e2, "85465465", d2);
+        // Funcionario fu1 = new Funcionario(null, "abraao", "123456798", "5456465", e2, "85465465", u1);
          
-         funcionarioRepository.save(fu1);
+        // funcionarioRepository.save(fu1);
          
           
     }

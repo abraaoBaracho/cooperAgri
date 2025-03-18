@@ -1,15 +1,12 @@
 package br.com.cooperagri.model.dto;
 
-import java.util.Set;
-
-import br.com.cooperagri.model.Funcionario;
 import br.com.cooperagri.model.Servico;
 import br.com.cooperagri.model.enums.ServicoCode;
 
 public record ServicoDto(
 
         Long id,
-        Set<Long> funcionarioId,
+        //Set<Long> funcionarioId,
         ServicoCode servicoCode,
         String valorServico,
         Integer quantidadeDeHoras,
@@ -18,7 +15,7 @@ public record ServicoDto(
 
     public ServicoDto(Servico modelo) {
         this(modelo.getId(),
-                modelo.getFuncionariosId(),
+               // modelo.getFuncionariosId(),
                 modelo.getServicoCode(),
                 modelo.getValorServico(),
                 modelo.getQuantidadeDeHoras(),
@@ -26,10 +23,10 @@ public record ServicoDto(
                 modelo.getDia());
     }
 
-    public Servico modelo(Set<Funcionario> funcionario) {
+    public Servico modelo() {
         Servico novoServico = new Servico();
 
-        novoServico.setFuncionarios(funcionario);
+        //novoServico.setFuncionarios(funcionario);
         novoServico.setServicoCode(servicoCode);
         novoServico.setValorServico(valorServico);
         novoServico.setQuantidadeDeHoras(quantidadeDeHoras);

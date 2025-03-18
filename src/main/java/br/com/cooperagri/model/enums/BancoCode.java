@@ -11,7 +11,7 @@ public enum BancoCode {
     NUBANK(260),
     OUTROS(0);
 
-    private int code;
+    private final int code;
 
     private BancoCode(int code) {
         this.code = code;

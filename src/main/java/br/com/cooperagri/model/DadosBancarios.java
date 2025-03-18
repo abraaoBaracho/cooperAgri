@@ -50,7 +50,7 @@ public class DadosBancarios implements Serializable {
         return BancoCode.valueOf(banco);
     }
 
-    public void setBancoCode(BancoCode banco) {
+    public final void setBancoCode(BancoCode banco) {
         if (banco != null) {
             this.banco = banco.getCode();
         }

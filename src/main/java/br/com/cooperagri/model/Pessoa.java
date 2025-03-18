@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,12 +43,17 @@ public abstract class Pessoa implements Serializable {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
+     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dados_bancarios_id")
     private DadosBancarios dados_bancarios;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
     public Pessoa(Long id, String nome, String cpf, String rg, Endereco endereco, String telefone,
-            DadosBancarios dados_bancarios) {
+            DadosBancarios dados_bancarios, Usuario usuario) {
         this.id = id;
         this.nome = nome;
         this.cpf = formatarString(cpf);
@@ -55,6 +61,7 @@ public abstract class Pessoa implements Serializable {
         this.telefone = formatarString(telefone);
         this.endereco = endereco;
         this.dados_bancarios = dados_bancarios;
+        this.usuario = usuario;
     }
 
     public void setCpf(String cpf) {
